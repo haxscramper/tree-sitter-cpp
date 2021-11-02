@@ -3,3 +3,7 @@ node_modules
 build
 package-lock.json
 /target/
+
+cpp_parser.c
+cpp_wrapper.nim
+test_user

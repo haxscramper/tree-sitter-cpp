@@ -358,7 +358,8 @@ module.exports = grammar(C, {
       $.alias_declaration,
       $.using_declaration,
       $.type_definition,
-      $.static_assert_declaration
+      $.static_assert_declaration,
+      $.qproperty_declaration
     ),
 
     field_declaration: $ => seq(
@@ -446,9 +447,25 @@ module.exports = grammar(C, {
       choice(
         'public',
         'private',
-        'protected'
+        'protected',
+        'slots',
+        'signals',
+
+        seq('public', 'slots'),
+        seq('public', 'signals'),
+        seq('private', 'slots'),
+        seq('private', 'signals'),
+        seq('protected', 'slots'),
+        seq('protected', 'signals'),
       ),
       ':'
+    ),
+
+
+    qproperty_declaration: $ => seq(
+      'Q_PROPERTY', '(',
+      repeat($._type_identifier),
+      ')'
     ),
 
     _declarator: ($, original) => choice(
